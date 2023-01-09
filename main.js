@@ -16,11 +16,12 @@
   camera.position.setZ(-0.1);
 
   //https://threejs.org/docs/index.html#api/en/geometries/TorusKnotGeometry
-  const geometry = new THREE.BoxGeometry(5, 5, 1);
+  const geometry1 = new THREE.BoxGeometry(5, 5, 5);
+  const geometry2 = new THREE.BoxGeometry(3, 3, 3);
   //mesh for geometry, basic mesh requires no light source, standard mesh requires a light source
   const material = new THREE.MeshStandardMaterial( { color: 0xFF6347} );
-  const cube = new THREE.Mesh(geometry,material);
-  const cube2 = new THREE.Mesh(geometry,material);
+  const cube = new THREE.Mesh(geometry1,material);
+  const cube2 = new THREE.Mesh(geometry2,material);
   scene.add(cube, cube2);
 
   //lighting, ambient is all light, point light is just like a lightbulb
@@ -64,15 +65,17 @@
   cube.position.setZ(10);
   cube.position.setX(15);
 
-  cube2.position.setZ(0);
-  cube2.position.setX(-15);
+  cube2.position.setZ(10);
+  cube2.position.setX(15);
+  cube2.position.setY(4);
 
   function moveCamera() {
     const t = document.body.getBoundingClientRect().top;
     if(t >= 0)
       t = -1;
 
-    camera.position.setZ(t * 0.05);
+    camera.position.setZ(t * 0.1);
+    // camera.position.setY(t * -0.1);
     // camera.position.setY(t * 0.002);
     // camera.position.setX(t * -0.0002);
 
@@ -85,7 +88,7 @@
   function animate() {
     requestAnimationFrame(animate);
 
-    cube.rotation.x += 0.01;
+    cube.rotation.y -= 0.01;
     cube2.rotation.y += 0.01;
     // cube.rotation.y += 0.005;
     // cube.rotation.z += 0.01;
