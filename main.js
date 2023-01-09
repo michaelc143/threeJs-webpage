@@ -19,16 +19,27 @@
   const geometry1 = new THREE.BoxGeometry(5, 5, 5);
   const geometry2 = new THREE.BoxGeometry(3, 3, 3);
   //mesh for geometry, basic mesh requires no light source, standard mesh requires a light source
-  const material = new THREE.MeshStandardMaterial( { color: 0xFF6347} );
+  const material = new THREE.MeshStandardMaterial( { color: 0xC5050C} );
   const cube = new THREE.Mesh(geometry1,material);
   const cube2 = new THREE.Mesh(geometry2,material);
-  scene.add(cube, cube2);
+  const cube3 = new THREE.Mesh(geometry1,material);
+  const cube4 = new THREE.Mesh(geometry2,material);
+  scene.add(cube, cube2, cube3, cube4);
 
   //lighting, ambient is all light, point light is just like a lightbulb
-  const ambientLight = new THREE.AmbientLight(0xffffff);
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.1);
   const pointLight = new THREE.PointLight(0xffffff);
   scene.add(pointLight, ambientLight);
 
+  const directionalLight = new THREE.DirectionalLight( 0xffffff, 0.5 );
+  // directionalLight.target = (15,4,10);
+  directionalLight.target.x = 15;
+  directionalLight.target.y = 4;
+  directionalLight.target.z = 10;
+  scene.add(directionalLight);
+  directionalLight.position.x = 15;
+  directionalLight.position.y = 6;
+  directionalLight.position.z = 10;
   //orbit controls, allows user to interact with page by moving geometry with mouse drags
   const controls = new OrbitControls(camera, renderer.domElement);
 
@@ -69,6 +80,13 @@
   cube2.position.setX(15);
   cube2.position.setY(4);
 
+  cube3.position.setZ(10);
+  cube3.position.setX(-15);
+
+  cube4.position.setZ(10);
+  cube4.position.setX(-15);
+  cube4.position.setY(4);
+
   function moveCamera() {
     const t = document.body.getBoundingClientRect().top;
     if(t >= 0)
@@ -90,11 +108,11 @@
 
     cube.rotation.y -= 0.01;
     cube2.rotation.y += 0.01;
+    cube3.rotation.y += 0.01;
+    cube4.rotation.y -= 0.01;
     // cube.rotation.y += 0.005;
     // cube.rotation.z += 0.01;
-    globe.rotation.x += 0.05;
-    globe.rotation.y+= 0.075;
-    globe.rotation.z += 0.05;
+    globe.rotation.y+= 0.0075;
 
     controls.update();
 
