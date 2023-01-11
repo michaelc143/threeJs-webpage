@@ -1,6 +1,7 @@
   import './style.css';
   import * as THREE from 'three';
   import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+  import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
 
   function setup() {
   const scene = new THREE.Scene();
@@ -14,6 +15,8 @@
   //setting the render size to the size of the given window
   renderer.setSize(window.innerWidth,window.innerHeight);
   camera.position.setZ(-0.1);
+
+
 
   //https://threejs.org/docs/index.html#api/en/geometries/TorusKnotGeometry
   const geometry1 = new THREE.BoxGeometry(5, 5, 5);
@@ -69,6 +72,27 @@
   );
 
   scene.add(globe);
+
+  const loader = new FontLoader();
+
+  loader.load( 'fonts/helvetiker_regular.typeface.json', function ( font ) {
+    const geometryText = new TextGeometry( 'HELLO WORLD!', {
+      font: font,
+      size: 80,
+      height: 5,
+      width: 50,
+      depth: 3,
+
+    } );
+
+    const materialText = new THREE.MeshStandardMaterial( { color: 0xC5050C} );
+    const text = new THREE.Mesh(geometryText,materialText);
+    scene.add(text);
+    text.position.setZ(30);
+    text.position.setX(15);
+    text.position.setY(5);
+  } );
+
 
   globe.position.setZ(30);
   globe.position.setX(-15);

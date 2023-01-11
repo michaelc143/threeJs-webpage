@@ -13,6 +13,7 @@
     "vite": "^4.0.0"
   },
   "dependencies": {
+    "FontLoader": "^0.0.2",
     "gh-pages": "^4.0.0",
     "three": "^0.148.0"
   }
